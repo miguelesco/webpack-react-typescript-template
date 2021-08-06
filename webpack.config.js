@@ -15,17 +15,44 @@ const scssRules = {
   ],
 };
 
+const imagesRule = {
+  test: /\.(png|jp(e*)g|svg|gif)$/,
+  use: ['file-loader'],
+};
+
+const svgRule = {
+  test: /\.svg$/,
+  use: ['@svgr/webpack'],
+};
+
+const reactRules = {
+  test: /\.?js$/,
+  exclude: /node_modules/,
+  use: {
+    loader: "babel-loader",
+    options: {
+      presets: ['@babel/preset-env', '@babel/preset-react']
+    }
+  }
+}
+
 module.exports = {
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: 'app.js',
+  },
+  devServer: {
+    contentBase: './dist',
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    }
   },
   plugins: [new HtmlWebpackPlugin({
     title: 'Webpack Project',
     template: 'src/index.html',
   })],
   module: {
-    rules: [scssRules],
+    rules: [scssRules, reactRules, imagesRule, svgRule],
   },
 
 };
