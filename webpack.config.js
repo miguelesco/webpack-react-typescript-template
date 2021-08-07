@@ -1,4 +1,7 @@
+
+
 /* eslint-disable */
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 /* eslint-disable */
 const path = require('path');
@@ -26,20 +29,19 @@ const svgRule = {
 };
 
 const reactRules = {
-  test: /\.?js$/,
+  use: "babel-loader",
+  test: /.(js|jsx)$/,
   exclude: /node_modules/,
-  use: {
-    loader: "babel-loader",
-    options: {
-      presets: ['@babel/preset-env', '@babel/preset-react']
-    }
-  }
 }
 
+/** @type {import('webpack').Configuration} **/
+
 module.exports = {
+  entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, './dist'),
-    filename: 'app.js',
+    path: path.resolve(__dirname, 'dist'),
+    filename: "[name].[contenthash].js",
+    publicPath: ""
   },
   devServer: {
     contentBase: './dist',
@@ -48,11 +50,14 @@ module.exports = {
     }
   },
   plugins: [new HtmlWebpackPlugin({
-    title: 'Webpack Project',
-    template: 'src/index.html',
-  })],
+    title: 'Project GM',
+    template: 'public/index.html',
+  }), new CleanWebpackPlugin()],
   module: {
     rules: [scssRules, reactRules, imagesRule, svgRule],
   },
+  resolve: {
+    extensions: [".js", ".jsx", ".json"]
+  }
 
 };
