@@ -13,14 +13,17 @@ const assetsRule = {
 
 const reactRules = {
   use: "babel-loader",
-  test: /.(js|jsx)$/,
+  test: /\.(ts|js)x?$/,
   exclude: /node_modules/,
 }
 
 /** @type {import('webpack').Configuration} **/
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
+  resolve: {
+    extensions: [".ts", ".tsx", ".json", ".js"]
+  },
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: "[name].[contenthash].js",
@@ -33,8 +36,5 @@ module.exports = {
   module: {
     rules: [ reactRules, assetsRule],
   },
-  resolve: {
-    extensions: [".js", ".jsx", ".json"]
-  }
 
 };
