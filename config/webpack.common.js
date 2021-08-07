@@ -6,27 +6,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 /* eslint-disable */
 const path = require('path');
 
-const scssRules = {
-  test: /\.s[ac]ss$/i,
-  use: [
-    // Creates `style` nodes from JS strings
-    'style-loader',
-    // Translates CSS into CommonJS
-    'css-loader',
-    // Compiles Sass to CSS
-    'sass-loader',
-  ],
-};
-
-const imagesRule = {
-  test: /\.(png|jp(e*)g|svg|gif)$/,
-  use: ['file-loader'],
-};
-
-const svgRule = {
-  test: /\.svg$/,
-  use: ['@svgr/webpack'],
-};
+const assetsRule = {
+  type: "asset",
+  test: /\.(png|svg|jpg|jpeg|gif)$/i
+}
 
 const reactRules = {
   use: "babel-loader",
@@ -39,22 +22,16 @@ const reactRules = {
 module.exports = {
   entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: "[name].[contenthash].js",
     publicPath: ""
-  },
-  devServer: {
-    contentBase: './dist',
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    }
   },
   plugins: [new HtmlWebpackPlugin({
     title: 'Project GM',
     template: 'public/index.html',
   }), new CleanWebpackPlugin()],
   module: {
-    rules: [scssRules, reactRules, imagesRule, svgRule],
+    rules: [ reactRules, assetsRule],
   },
   resolve: {
     extensions: [".js", ".jsx", ".json"]

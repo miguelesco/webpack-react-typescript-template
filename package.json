@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "sass": "sass --watch src/app/scss/main.scss src/main.css",
-    "build": "webpack --mode production",
-    "dev": "webpack --mode development --watch",
-    "start": "webpack serve --open --mode development",
+    "build": "webpack --config config/webpack.prod.js",
+    "start": "webpack serve --config config/webpack.dev.js",
     "test": "jest "
   },
   "keywords": [],
@@ -22,12 +21,14 @@
     "core-js": "^3.16.0",
     "css-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.2",
+    "mini-css-extract-plugin": "^2.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.1.0",
     "webpack": "^5.45.1",
-    "webpack-cli": "^4.7.2"
+    "webpack-cli": "^4.7.2",
+    "webpack-merge": "^5.8.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -36,6 +37,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.14.5",
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-react": "^7.14.5",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "css-loader": "^6.2.0",
@@ -50,6 +52,7 @@
     "html-webpack-plugin": "^5.3.2",
     "jest": "^27.0.6",
     "lodash": "^4.17.21",
+    "react-refresh": "^0.10.0",
     "sass": "^1.35.2",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.1.0",
